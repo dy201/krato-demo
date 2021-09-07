@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package user.service.v1;
+
+option go_package = "api/user/service/v1;v1";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+service UserService{
+
+  rpc GetUser(GetUserReq) returns(GetUserReply){
+  }
+
+  rpc CreateUser(CreateUserReq) returns(CreateUserReply){
+  }
+
+  rpc UpdateUser(UpdateUserReq) returns(UpdateUserReply){
+  }
+
+  rpc DeleteUser(DeleteUserReq) returns(DeleteUserReply){
+
+  }
+  rpc GetUserList(GetUserListReq) returns(GetUserListReply) {
+
+  }
+}
+
+message User {
+  uint32 id = 1;
+  string user_name = 2;
+  string password = 3;
+  string nickname = 4;
+  int32 status = 5;
+  string email = 6 [(validate.rules).string.email = true];
+  string phone = 7 [(validate.rules).string.len = 11];
+  int32 role_id = 8;
+  uint32 age = 9 [(validate.rules).uint32 = {gt:0, lte: 200}];
+  google.protobuf.Timestamp create_at = 10;
+  google.protobuf.Timestamp update_at = 11;
+  google.protobuf.Timestamp delete_at = 12;
+}
+
+message GetUserReq {
+  uint32 id = 1;
+}
+
+message GetUserReply{
+  User user = 1;
+}
+
+message CreateUserReq{
+  string username = 2;
+  string password = 3;
+  string nickname = 4;
+  int32 status = 5;
+  string email = 6;
+  string phone = 7;
+  uint32 age = 8;
+}
+
+message CreateUserReply{
+  User user = 1;
+}
+
+message UpdateUserReq{
+  User user = 1;
+}
+
+message UpdateUserReply{
+  User user = 1;
+}
+
+message DeleteUserReq {
+  uint32 id = 1;
+}
+
+message DeleteUserReply{
+  bool ok = 1;
+}
+
+message PageInfo {
+  uint32 page_num = 1;
+  uint32 Page_size = 2;
+}
+
+message GetUserListReq{
+    PageInfo page_info = 1;
+}
+
+message GetUserListReply{
+  repeated User users = 1;
+}

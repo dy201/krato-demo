@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package blog.admin.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "api/blog/interface/v1;v1";
+
+
+service BlogInterfaceService {
+  rpc Login (LoginReq) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/admin/v1/login"
+      body: "*"
+    };
+  }
+}

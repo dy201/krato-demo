@@ -1,0 +1,506 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "blog_admin.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BlogAdminService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/admin/login": {
+      "post": {
+        "summary": "// 登录",
+        "operationId": "BlogAdminService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/logout": {
+      "post": {
+        "operationId": "BlogAdminService_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LogoutReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LogoutReq"
+            }
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/register": {
+      "post": {
+        "summary": "注册用户",
+        "operationId": "BlogAdminService_Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterReq"
+            }
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/user/add": {
+      "post": {
+        "summary": "// 添加用户",
+        "operationId": "BlogAdminService_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/user/delete/{id}": {
+      "delete": {
+        "summary": "删除用户 - id",
+        "operationId": "BlogAdminService_DeleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/user/{id}": {
+      "get": {
+        "summary": "// 根据id查询用户",
+        "operationId": "BlogAdminService_SearchUserByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserByIDReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/user/{user.id}/update": {
+      "put": {
+        "summary": "// 更新用户",
+        "operationId": "BlogAdminService_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user.id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "summary": "// 分页查询用户列表",
+        "operationId": "BlogAdminService_GetUserList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserListReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageInfo.pageNum",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pageInfo.PageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "query",
+            "description": "根据用户名查询.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BlogAdminService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1CreateUserReply": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
+    "v1CreateUserReq": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
+    "v1DeleteUserReply": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1GetUserListReply": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1User"
+          }
+        }
+      }
+    },
+    "v1LoginReply": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "v1LoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1LogoutReply": {
+      "type": "object"
+    },
+    "v1LogoutReq": {
+      "type": "object"
+    },
+    "v1PageInfo": {
+      "type": "object",
+      "properties": {
+        "pageNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PageSize": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1RegisterReply": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1RegisterReq": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1SearchUserByIDReply": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
+    "v1UpdateUserReply": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
+    "v1UpdateUserReq": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
+    "v1User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "roleId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updateAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

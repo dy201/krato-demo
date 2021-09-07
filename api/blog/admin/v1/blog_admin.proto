@@ -1,0 +1,405 @@
+syntax = "proto3";
+
+package blog.admin.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+option go_package = "api/blog/admin/v1;v1";
+import "google/protobuf/timestamp.proto";
+
+service BlogAdminService {
+  // admin - user
+
+  // @RequestMapping(value = "/admin/user/{userId}/role" , method = RequestMethod.PUT)
+  //    public Result updateUserRole(@PathVariable("userId") String userId,
+  //                                 @RequestBody String selectedRoleId) throws JsonProcessingException {
+  //  rpc UpdateUserRole(UpdateUserRoleReq) returns (UpdateUserRoleReply) {
+  //
+  //  }
+
+   //  删除用户 - id
+  rpc DeleteUser(DeleteUserReq) returns (DeleteUserReply) {
+    option (google.api.http) = {
+      delete: "/admin/user/delete/{id}"
+    };
+  }
+
+   // 根据id查询用户
+  rpc SearchUserByID(SearchUserByIDReq) returns (SearchUserByIDReply){
+    option (google.api.http) = {
+      get: "/admin/user/{id}"
+    };
+  }
+
+   // 添加用户
+  rpc CreateUser(CreateUserReq) returns (CreateUserReply){
+    option (google.api.http) = {
+      post: "/admin/user/add"
+      body: "*"
+    };
+  }
+
+   // 更新用户
+  rpc UpdateUser(UpdateUserReq) returns (UpdateUserReply) {
+    option (google.api.http) = {
+      put: "/admin/user/{user.id}/update"
+      body: "*"
+    };
+  }
+
+   // 分页查询用户列表
+  rpc GetUserList(GetUserListReq) returns (GetUserListReply) {
+    option (google.api.http) = {
+//      get: "/admin/users"
+      get: "/admin/user/list"
+    };
+  }
+
+   // 登录
+  rpc Login(LoginReq) returns (LoginReply){
+    option (google.api.http) = {
+      post: "/admin/login"
+      body: "*"
+    };
+  }
+
+  // 用户退出
+  rpc Logout(LogoutReq) returns(LogoutReply) {
+    option (google.api.http) = {
+      post: "/admin/logout"
+      body: "*"
+    };
+  }
+
+  // 注册用户
+  rpc Register(RegisterReq) returns (RegisterReply){
+    option (google.api.http) = {
+      post: "/admin/register"
+      body: "*"
+    };
+  }
+
+
+
+  //  // admin - article
+  //
+  //  // 新建文章
+  ////    @RequestMapping(value = "/admin/article", method = RequestMethod.POST)
+  ////      public Result addArticle(@RequestBody Article article){
+  //  rpc CreateArticle(CreateArticleReq) returns (CreateArticleReply) {
+  //    option (google.api.http) = {
+  //      post: "/admin/article"
+  //      body: "*"
+  //    };
+  //  }
+  //
+  //  // 删除文章 - id
+  ////    @RequestMapping(value = "/admin/article/delete/{id}", method = RequestMethod.PUT)
+  ////    public Result deleteArticle(@PathVariable(value = "id") Integer id){
+  //  rpc DeleteArticle(DeleteArticleReq) returns (DeleteArticleReply){
+  //
+  //  }
+  //
+  //  // 更新文章
+  ////    @RequestMapping(value = "/admin/article/update", method = RequestMethod.POST)
+  ////      public Result updateArticle(@RequestBody Article article){
+  //  rpc UpdateArticle(UpdateArticleReq) returns (UpdateArticleReply){
+  //
+  //  }
+  //
+  //  // admin - authority
+  //
+  ////    @RequestMapping(value = "/admin/authority/list", method = RequestMethod.GET)
+  ////      public Result queryAuthorityList(){
+  ////  QueryWrapper<Authority> queryWrapper = new QueryWrapper<>();
+  ////      queryWrapper.orderByAsc("level").eq("status",1);
+  //  // 查询权限列表
+  //  rpc SearchAuthorityList (SearchAuthorityListReq)  returns (SearchAuthorityListReply) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/authority/tree", method = RequestMethod.GET)
+  //  // 查询权限树
+  //  rpc SearchAuthorityTree( SearchAuthorityTreeReq ) returns ( SearchAuthorityTreeReply ) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/category/tree", method = RequestMethod.GET)
+  ////      public Result getCategoryTree(@RequestParam("pageNum") Integer pageNum,
+  ////      @RequestParam("pageSize") Integer pageSize){
+  //  // 查询分类 - 分页
+  //  rpc SearchCategoryTree(SearchCategoryTreeReq) returns (SearchCategoryTreeReply) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.PUT)
+  ////      public Result deleteCategory(@PathVariable(value = "id") Integer id){
+  //  // 删除分类 - id
+  //  rpc DeleteCategory (DeleteCategoryReq) returns (DeleteCategoryReply) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/category/update", method = RequestMethod.PUT)
+  ////      public Result updateCategory(@RequestBody Category category){
+  //  // 更新分类
+  //  rpc UpdateCategory(UpdateCategoryReq) returns (UpdateCategoryReply) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/categories",method = RequestMethod.GET)
+  ////      public Result getCategoryTree(@RequestParam("type") Integer type){
+  //  // 获取分类信息
+  //  // 只有两种情况：1.type = 2，取一二级别的分类列表；2.type = 3，取一二三级别的分类列表
+  //  // limitGrade在sql中设置为: category_level != limitGrade
+  //  rpc GetCategoryTree(GetCategoryTreeReq) returns (GetCategoryTreeReply) {
+  //
+  //  }
+  //
+  ////    @RequestMapping(value = "/admin/addCategory",method = RequestMethod.POST
+  ////      public Result addCategory(@RequestBody Category category){
+  //  rpc  CreateCategory(CreateCategoryReq) returns (CreateCategoryReply) {
+  //
+  //  }
+  //
+  //  // admin - menu
+  //  // 获取所有菜单
+  ////    @RequestMapping(value = "/admin/menu/list", method = RequestMethod.GET)
+  //  rpc GetMenuList(GetMenuListReq) returns (GetMenuListReply) {
+  //
+  //  }
+  //
+  //  // 获取所有一级菜单
+  ////    @RequestMapping(value = "/admin/menu/topAndSub", method = RequestMethod.GET)
+  //  rpc GetTopMenuList(GetTopMenuListReq) returns (GetTopMenuListReply) {
+  //
+  //  }
+  //
+  //  // 获取二级菜单 - 根据pid
+  ////    @RequestMapping(value = "/admin/menu/second/{pid}", method = RequestMethod.GET)
+  ////      public Result getSecondMenuList(@PathVariable("pid") Integer pid){
+  //  rpc GetSecondMenuList(GetSecondMenuListReq) returns (GetSecondMenuListReply){
+  //
+  //  }
+  //
+  //  // @RequestMapping(value = "/admin/message/list", method = RequestMethod.GET)
+  //  //    public Result getMessagesPage(@RequestParam("pageNum") Integer pageNum,
+  //  //                                  @RequestParam("pageSize") Integer pageSize ,
+  //  //                                  @RequestParam("query") String query){
+  //  // 查询留言列表 - 分页
+  //  rpc GetMessageList (GetMessageListReq) returns (GetMessageListReply) {
+  //
+  //  }
+  //
+  ////  /**
+  //  //     * 更新留言
+  //  //     * @param message 留言
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/message/update", method = RequestMethod.PUT)
+  //  //    public Result updateMessage(@RequestBody Message message){
+  //  rpc UpdateMessage(UpdateMessageReq) returns (UpdateMessageReply) {
+  //
+  //  }
+  //
+  //  //@RequestMapping(value = "/admin/message/delete/{id}", method = RequestMethod.DELETE)
+  //  //    public Result deleteMessage(@PathVariable(value = "id") String id){
+  //  // 删除留言
+  //  rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageReply) {
+  //
+  //  }
+  //
+  //  // admin - role
+  //  // /**
+  //  //     * 查询所有角色，及其权限列表。
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/roles", method = RequestMethod.GET)
+  //  rpc getRoleList(getRoleListReq) returns (getRoleListReply) {
+  //
+  //  }
+  //
+  //  // /**
+  //  //     * 删除当前角色权限，并返回当前角色及其权限
+  //  //     * @param roleId 角色id
+  //  //     * @param authorityId 权限id
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/role/delete/{roleId}/{authorityId}",method = RequestMethod.DELETE)
+  //  //    public Result deleteRoleAuthority(@PathVariable("roleId") Integer roleId ,
+  //  //                                      @PathVariable("authorityId") Integer authorityId){
+  //  rpc DeleteRoleAuthority( DeleteRoleAuthorityReq ) returns ( DeleteRoleAuthorityReply ) {
+  //
+  //  }
+  //
+  //  //@RequestMapping(value = "/admin/role/{roleId}/authority", method = RequestMethod.POST)
+  //  //    public Result updateRoleAuthority(@PathVariable(value = "roleId") Integer roleId,
+  //  //                                      @RequestBody String ids) throws JsonProcessingException {
+  //  rpc UpdateRoleAuthority(UpdateRoleAuthorityReq) returns (UpdateRoleAuthorityReply){
+  //
+  //  }
+  //
+  //  //// 通过id获取角色用户
+  //  //    @RequestMapping(value = "/admin/role/{id}", method = RequestMethod.GET)
+  //  //    public Result selectRoleById(@PathVariable(value = "id") Integer id){
+  //  rpc GetUserById(GetUserByIdReq) returns (GetUserByIdReply) {
+  //
+  //  }
+  //
+  //  // // 更新用户信息
+  //  //    @RequestMapping(value = "/admin/role/update", method = RequestMethod.PUT)
+  //  //    public Result selectRoleById(@RequestBody Role role){
+  //  rpc UpdateRole(UpdateRoleReq) returns (UpdateRoleReply) {
+  //
+  //  }
+  //
+  //  //// 删除用户信息
+  //  //    @RequestMapping(value = "/admin/role/delete/{id}", method = RequestMethod.DELETE)
+  //  //    public Result DeleteRoleById(@PathVariable(value = "id") Integer id){
+  //  rpc DeleteRoleByID(DeleteRoleByIDReq) returns (DeleteRoleByIDReply) {
+  //
+  //  }
+  //
+  //  // @RequestMapping(value = "/admin/role/add", method = RequestMethod.POST)
+  //  //    public Result InsertRole(@RequestBody Role role){
+  //  rpc CreateRole(CreateRoleReq) returns (CreateRoleReply) {
+  //
+  //  }
+  //
+  //  // admin -tag
+  //
+  //  ///**
+  //  //     * 获取携带分页的标签列表
+  //  //     * @param pageNum 当前页
+  //  //     * @param pageSize 页面大小
+  //  //     * @param query 查询
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/tag/list", method = RequestMethod.GET)
+  //  //    public Result getTagList(@RequestParam("pageNum") Integer pageNum,
+  //  //                             @RequestParam("pageSize") Integer pageSize ,
+  //  //                             @RequestParam("query") String query){
+  //  rpc GetTagList(GetTagListReq) returns (GetTagListReply) {
+  //
+  //  }
+  //
+  //  // /**
+  //  //     * 更新标签
+  //  //     * @param tag 标签名称
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/tag/update", method = RequestMethod.POST)
+  //  //    public Result updateTag(@RequestBody Tag tag){
+  //  rpc UpdateTag(UpdateTagReq) returns (UpdateTagReply) {
+  //
+  //  }
+  //
+  //  // /**
+  //  //     * 添加标签
+  //  //     * @param tag 标签名称
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/tag/add", method = RequestMethod.POST)
+  //  //    public Result addTag(@RequestBody Tag tag){
+  //  rpc CreateTag(CreateTagReq) returns (CreateTagReply) {
+  //
+  //  }
+  //
+  //  ///**
+  //  //     * 删除标签
+  //  //     * @param id 标签id
+  //  //     * @return Result
+  //  //     */
+  //  //    @RequestMapping(value = "/admin/tag/delete/{id}", method = RequestMethod.DELETE)
+  //  rpc DeleteTag(DeleteTagReq) returns (DeleteTagReply){
+  //
+  //  }
+}
+
+message User {
+  uint32 id = 1;
+  string user_name = 2 [(validate.rules).string.min_len =  3];
+  string password = 3 [(validate.rules).string.min_len =  3];
+  string nickname = 4[(validate.rules).string.min_len =  3];
+  int32 status = 5;
+  string email = 6 [(validate.rules).string.email = true];
+  string phone = 7;
+  int32 role_id = 8;
+  uint32 age = 9 [(validate.rules).uint32 = {gt:0, lte: 200}];
+  google.protobuf.Timestamp create_at = 10;
+  google.protobuf.Timestamp update_at = 11;
+}
+
+message CreateUserReq{
+  User user = 1;
+}
+
+message CreateUserReply{
+  User user = 1;
+}
+
+message SearchUserByIDReq{
+  uint32 id = 1;
+}
+
+message SearchUserByIDReply{
+  User user = 1;
+}
+
+message DeleteUserReq{
+  uint32 id = 1;
+}
+
+message DeleteUserReply{
+  bool ok = 1;
+}
+
+message UpdateUserReq{
+  User user = 1;
+}
+
+message UpdateUserReply{
+  User user = 1;
+}
+
+message PageInfo {
+  uint32 page_num = 1;
+  uint32 Page_size = 2;
+}
+
+message GetUserListReq{
+  PageInfo page_info = 1;
+  // 根据用户名查询
+  string query = 2;
+}
+
+message GetUserListReply{
+  repeated User users = 1;
+}
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+message LoginReply{
+  string token = 1;
+}
+
+message RegisterReq{
+  string user_name = 2 [(validate.rules).string.min_len =  3];
+  string password = 3 [(validate.rules).string.min_len =  3];
+  string nickname = 4[(validate.rules).string.min_len =  3];
+  string email = 6 [(validate.rules).string.email = true];
+  string phone = 7;
+  uint32 age = 9 [(validate.rules).uint32 = {gt:0, lte: 200}];
+}
+message RegisterReply{
+  bool ok = 1;
+}
+
+message LogoutReq{
+
+}
+
+message LogoutReply{
+
+}
