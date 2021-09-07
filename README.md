@@ -16,3 +16,8 @@ krato-demo
 
 # 数据库
 放在deploy/mysql文件夹中, 数据库名`doyle_blog`
+
+# 其它
+swagger json 文件，我没更新。
+
+进入blog_admin的proto目录，运行 `protoc --proto_path=.  --proto_path=../../../../third_party  --openapiv2_out .  --openapiv2_opt logtostderr=true blog_admin.proto` 更新即可。
